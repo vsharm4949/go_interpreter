@@ -14,7 +14,7 @@ const (
     IDENT    = "IDENT"
     INT      = "INT"
 
-    EQUALS    = "="
+    ASSIGN    = "="
     PLUS      = "+"
 
     COMMA     = ","
