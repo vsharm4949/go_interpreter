@@ -7,7 +7,7 @@ import(
 )
 
 func TestNextToken(t *testing.T) {
-    input := `=+(){},;` // @NOTE: What does backtick do?
+    input := `=+(){},;` 
 
     tests := []struct {
         expectedType    token.TokenType
@@ -28,7 +28,6 @@ func TestNextToken(t *testing.T) {
 
     for i, tt := range tests {
         tok := l.NextToken()
-
         if tok.Type != tt.expectedType {
             t.Fatalf(
                 "tests[%d] - tokentype wrong. expected=%q, got=%q",
