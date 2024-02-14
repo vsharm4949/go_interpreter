@@ -15,7 +15,17 @@ const (
     INT      = "INT"
 
     ASSIGN    = "="
+
     PLUS      = "+"
+    MINUS     = "-"
+    MULTIPLY  = "*"
+    DIVIDE    = "/"
+
+    NOT       = "!"
+    LT        = "<"
+    GT        = ">"
+    EQ        = "=="
+    NOT_EQ    = "!="
 
     COMMA     = ","
     SEMICOLON = ";"
@@ -27,4 +37,9 @@ const (
 
     FUNCTION  = "FUNCTION"
     LET       = "LET"
+    TRUE      = "TRUE"
+    FALSE     = "FALSE"
+    IF        = "IF"
+    ELSE      = "ELSE"
+    RETURN    = "RETURN"
 )

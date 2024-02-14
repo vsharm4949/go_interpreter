@@ -25,6 +25,13 @@ func (l *Lexer) readChar() {
     l.readPosition += 1
 }
 
+func (l *Lexer) peekChar() byte {
+    if l.readPosition >= len(l.input) {
+        return 0
+    }
+    return l.input[l.readPosition]
+}
+
 func (l *Lexer) NextToken() token.Token {
     var tok token.Token
 
@@ -32,7 +39,13 @@ func (l *Lexer) NextToken() token.Token {
 
     switch l.ch {
     case '=':
-        tok = newToken(token.ASSIGN, l.ch)
+        if l.peekChar() == '=' {
+            tok.Literal = "=="
+            tok.Type = token.EQ
+            l.readChar()
+        } else {
+            tok = newToken(token.ASSIGN, l.ch)
+        }
     case ';':
         tok = newToken(token.SEMICOLON, l.ch)
     case '(':
@@ -43,6 +56,24 @@ func (l *Lexer) NextToken() token.Token {
         tok = newToken(token.COMMA, l.ch)
     case '+':
         tok = newToken(token.PLUS, l.ch)
+    case '-':
+        tok = newToken(token.MINUS, l.ch)
+    case '*':
+        tok = newToken(token.MULTIPLY, l.ch)
+    case '/':
+        tok = newToken(token.DIVIDE, l.ch)
+    case '!':
+        if l.peekChar() == '=' {
+            tok.Literal = "!="
+            tok.Type = token.NOT_EQ
+            l.readChar()
+        } else {
+            tok = newToken(token.NOT, l.ch)
+        }
+    case '<':
+        tok = newToken(token.LT, l.ch)
+    case '>':
+        tok = newToken(token.GT, l.ch)
     case '{':
         tok = newToken(token.LBRACE, l.ch)
     case '}':
@@ -86,6 +117,11 @@ func (l *Lexer) readInt() string {
 var keywords = map[string]token.TokenType{
     "fn": token.FUNCTION,
     "let": token.LET,
+    "true": token.TRUE,
+    "false": token.FALSE,
+    "if": token.IF,
+    "else": token.ELSE,
+    "return": token.RETURN,
 }
 
 func LookupIdent(ident string) token.TokenType {
